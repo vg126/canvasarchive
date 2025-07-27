@@ -1,10 +1,3 @@
-# VG-CUL
-
-## Description
-No description available
-
-## Canvas Code
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,6 +78,8 @@ No description available
                         <option value="">Select Model</option>
                         <option value="Claude-Opus-4-Reasoning">Claude-Opus-4-Reasoning</option>
                         <option value="Claude-Sonnet-4-Reasoning">Claude-Sonnet-4-Reasoning</option>
+                        <option value="Claude-Opus-4">Claude-Opus-4</option>
+                        <option value="Claude-Sonnet-4">Claude-Sonnet-4</option>
                         <option value="GPT-4.1">GPT-4.1</option>
                         <option value="o3">o3</option>
                         <option value="Gemini-2.5-Pro">Gemini-2.5-Pro</option>
@@ -93,56 +88,31 @@ No description available
                 <div id="cost-vg" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
-            <!-- Some good ones -->
+            <!-- Fast and Furious -->
             <div class="dropdown-container">
-                <label class="block text-sm font-medium mb-2">Some good ones</label>
+                <label class="block text-sm font-medium mb-2">Fast and Furious</label>
                 <div class="flex items-center gap-2">
                     <input type="checkbox" id="enable-good" class="model-checkbox" data-category="good">
                     <select id="model-good" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
                         <option value="Claude-Haiku-3">Claude-Haiku-3</option>
                         <option value="DeepSeek-R1-FW">DeepSeek-R1-FW</option>
-                        <option value="GPT-3.5-Turbo">GPT-3.5-Turbo</option>
-                        <option value="GPT-4o">GPT-4o</option>
                         <option value="Llama-3-8b-Groq">Llama-3-8b-Groq</option>
-                        <option value="Mistral-7B-v0.3-T">Mistral-7B-v0.3-T</option>
                         <option value="Grok-4">Grok-4</option>
+                        <option value="Llama-4-Scout-B10">Llama-4-Scout-B10</option>
+                        <option value="Inception-Mercury-Coder">Inception-Mercury-Coder</option>
+                        <option value="Hermes-3-70B">Hermes-3-70B</option>
+                        <option value="Llama-4-Maverick">Llama-4-Maverick</option>
+                        <option value="MiniMax-M1">MiniMax-M1</option>
+                        <option value="GPT-4.5-Preview">GPT-4.5-Preview</option>
+                        <option value="o3-pro">o3-pro</option>
+                        <option value="o1">o1</option>
                     </select>
                 </div>
                 <div id="cost-good" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
-            <!-- Gemini Choice -->
-            <div class="dropdown-container">
-                <label class="block text-sm font-medium mb-2">Gemini Choice</label>
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" id="enable-gemini" class="model-checkbox" data-category="gemini">
-                    <select id="model-gemini" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
-                        <option value="">Select Model</option>
-                        <option value="Llama-4-Scout-B10">Llama-4-Scout-B10</option>
-                        <option value="Llama-3.1-405B">Llama-3.1-405B</option>
-                        <option value="Mistral-Large-2">Mistral-Large-2</option>
-                        <option value="Inception-Mercury-Coder">Inception-Mercury-Coder</option>
-                        <option value="Hermes-3-70B">Hermes-3-70B</option>
-                        <option value="GPT-Researcher">GPT-Researcher</option>
-                        <option value="Claude-Opus-4">Claude-Opus-4</option>
-                        <option value="Llama-4-Maverick-B10">Llama-4-Maverick-B10</option>
-                        <option value="Gemini-2.5-Flash">Gemini-2.5-Flash</option>
-                        <option value="Llama-4-Maverick">Llama-4-Maverick</option>
-                        <option value="GPT-4.1-mini">GPT-4.1-mini</option>
-                        <option value="MiniMax-M1">MiniMax-M1</option>
-                        <option value="Gemini-2.0-Flash">Gemini-2.0-Flash</option>
-                        <option value="o1-preview">o1-preview</option>
-                        <option value="GPT-4.5-Preview">GPT-4.5-Preview</option>
-                        <option value="o3-pro">o3-pro</option>
-                        <option value="o1">o1</option>
-                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
-                        <option value="Claude-Sonnet-3.7-Reasoning">Claude-Sonnet-3.7-Reasoning</option>
-                        <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
-                    </select>
-                </div>
-                <div id="cost-gemini" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
-            </div>
+
 
             <!-- Exotica -->
             <div class="dropdown-container">
@@ -176,49 +146,43 @@ No description available
 
             <!-- Web Search -->
             <div class="dropdown-container">
-                <label class="block text-sm font-medium mb-2">Web Search</label>
+                <label class="block text-sm font-medium mb-2">Goku</label>
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" id="enable-search1" class="model-checkbox" data-category="search1">
-                    <select id="model-search1" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                    <input type="checkbox" id="enable-raditz" class="model-checkbox" data-category="raditz">
+                    <select id="model-raditz" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
                         <option value="Web-Search">Web-Search</option>
-                        <option value="Gemini-2.5-Pro">Gemini-2.5-Pro</option>
                         <option value="Gemini-2.5-Flash">Gemini-2.5-Flash</option>
                         <option value="Gemini-2.5-Flash-Lite-Preview">Gemini-2.5-Flash-Lite-Preview</option>
-                        <option value="Gemini-2.0-Flash">Gemini-2.0-Flash</option>
                         <option value="GPT-4o-Search">GPT-4o-Search</option>
-                        <option value="Claude-Opus-4-Search">Claude-Opus-4-Search</option>
                         <option value="Claude-Sonnet-4-Search">Claude-Sonnet-4-Search</option>
                         <option value="Perplexity-Sonar-Rsn">Perplexity-Sonar-Rsn</option>
-                        <option value="Perplexity-Sonar">Perplexity-Sonar</option>
                         <option value="GPT-Researcher">GPT-Researcher</option>
-                        <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
-                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
+                        <option value="Gemini-1.5-Pro-Search">Gemini-1.5-Pro-Search</option>
                     </select>
                     <span class="text-blue-500 text-sm px-2">[Search]</span>
                 </div>
-                <div id="cost-search1" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+                <div id="cost-raditz" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
             <!-- Web Search 2 -->
             <div class="dropdown-container">
-                <label class="block text-sm font-medium mb-2">Web Search 2</label>
+                <label class="block text-sm font-medium mb-2">Vegeta</label>
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" id="enable-search2" class="model-checkbox" data-category="search2">
-                    <select id="model-search2" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                    <input type="checkbox" id="enable-nappa" class="model-checkbox" data-category="nappa">
+                    <select id="model-nappa" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
-                        <option value="Claude-Sonnet-3.7-Search">Claude-Sonnet-3.7-Search</option>
-                        <option value="Claude-Sonnet-3.5-Search">Claude-Sonnet-3.5-Search</option>
-                        <option value="Claude-Haiku-3.5-Search">Claude-Haiku-3.5-Search</option>
-                        <option value="GPT-4o-mini-Search">GPT-4o-mini-Search</option>
-                        <option value="Gemini-1.5-Pro-Search">Gemini-1.5-Pro-Search</option>
                         <option value="Gemini-1.5-Flash-Search">Gemini-1.5-Flash-Search</option>
                         <option value="Reka-Research">Reka-Research</option>
                         <option value="ChatGPT-4o-Latest">ChatGPT-4o-Latest</option>
+                        <option value="Claude-Opus-4-Search">Claude-Opus-4-Search</option>
+                        <option value="Gemini-2.5-Pro">Gemini-2.5-Pro</option>
+                        <option value="Perplexity-Sonar">Perplexity-Sonar</option>
+                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
                     </select>
                     <span class="text-blue-500 text-sm px-2">[Search]</span>
                 </div>
-                <div id="cost-search2" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+                <div id="cost-nappa" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
         </div>
 
@@ -254,9 +218,12 @@ No description available
 
         <!-- Generate Buttons -->
         <div class="flex flex-col items-center gap-4 mb-8">
-            <div class="flex justify-center gap-4">
-                <button id="websearch-btn" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Web Search
+            <div class="flex justify-center gap-4 flex-wrap">
+                <button id="websearch1-btn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Web Search 1 (Goku)
+                </button>
+                <button id="websearch2-btn" class="px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-teal-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Web Search 2 (Vegeta)
                 </button>
                 <button id="analysis-btn" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
                     Analysis
@@ -282,10 +249,10 @@ No description available
                 </div>
             </div>
 
-            <!-- Some good ones Response -->
+            <!-- Fast and Furious Response -->
             <div class="response-container" data-category="good">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-lg">Some good ones</h3>
+                    <h3 class="font-semibold text-lg">Fast and Furious</h3>
                     <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="good">
                         Copy
                     </button>
@@ -295,18 +262,7 @@ No description available
                 </div>
             </div>
 
-            <!-- Gemini Choice Response -->
-            <div class="response-container" data-category="gemini">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-lg">Gemini Choice</h3>
-                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="gemini">
-                        Copy
-                    </button>
-                </div>
-                <div id="response-gemini" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
-                    <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
-                </div>
-            </div>
+
 
             <!-- Exotica Response -->
             <div class="response-container" data-category="exotica">
@@ -322,27 +278,27 @@ No description available
             </div>
 
             <!-- Web Search Response -->
-            <div class="response-container" data-category="search1">
+            <div class="response-container" data-category="raditz">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-lg">Web Search</h3>
-                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="search1">
+                    <h3 class="font-semibold text-lg">Goku</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="raditz">
                         Copy
                     </button>
                 </div>
-                <div id="response-search1" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                <div id="response-raditz" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
                     <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
                 </div>
             </div>
 
             <!-- Web Search 2 Response -->
-            <div class="response-container" data-category="search2">
+            <div class="response-container" data-category="nappa">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-lg">Web Search 2</h3>
-                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="search2">
+                    <h3 class="font-semibold text-lg">Vegeta</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="nappa">
                         Copy
                     </button>
                 </div>
-                <div id="response-search2" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                <div id="response-nappa" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
                     <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
                 </div>
             </div>
@@ -557,7 +513,7 @@ No description available
         }
 
         // Event listeners for model selection
-        const categories = ['vg', 'good', 'gemini', 'exotica', 'search1', 'search2'];
+        const categories = ['vg', 'good', 'exotica', 'raditz', 'nappa'];
         
         categories.forEach(category => {
             const select = document.getElementById(`model-${category}`);
@@ -745,7 +701,7 @@ No description available
                                     fullPrompt += `Confidence: ${jsonData.confidence || 'N/A'}\n\n`;
                                 } catch (e) {
                                     // Fallback to raw text if not JSON
-                                    const categoryName = searchCategory === 'websearch' ? 'Web Search 1' : 'Web Search 2';
+                                    const categoryName = searchCategory === 'search1' ? 'Goku' : 'Vegeta';
                                     fullPrompt += `${categoryName} Results: ${content}\n\n`;
                                 }
                             });
@@ -759,7 +715,7 @@ No description available
                     logToDebug(`Final prompt for ${category}: ${fullPrompt.length} chars starting with: ${fullPrompt.substring(0, 100)}...`);
                     
                     // Register unique handler for this response
-                    const handlerName = `response-${category}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                    const handlerName = 'h' + crypto.randomUUID().replace(/-/g,'');
                     
                     logToDebug(`Registering handler: ${handlerName}`);
                     
@@ -841,9 +797,9 @@ No description available
         // Web search result storage
         let webSearchResults = {};
 
-        // Web Search Button - Fire and forget for web search models only
-        document.getElementById('websearch-btn').addEventListener('click', () => {
-            logToDebug('WEB SEARCH BUTTON CLICKED!');
+        // Web Search 1 Button - Goku only
+        document.getElementById('websearch1-btn').addEventListener('click', () => {
+            logToDebug('WEB SEARCH 1 BUTTON CLICKED!');
             
             const mainPrompt = document.getElementById('main-prompt').value;
             if (!mainPrompt.trim()) {
@@ -851,43 +807,71 @@ No description available
                 return;
             }
             
-            // Clear previous web search results
-            webSearchResults = {};
+            const category = 'raditz';
+            const checkbox = document.getElementById(`enable-${category}`);
+            const select = document.getElementById(`model-${category}`);
             
-            const webSearchCategories = ['search1', 'search2'];
-            let activeWebSearches = 0;
-            
-            webSearchCategories.forEach(category => {
-                const checkbox = document.getElementById(`enable-${category}`);
-                const select = document.getElementById(`model-${category}`);
+            if (checkbox.checked && select.value) {
+                logToDebug(`Starting web search for ${category}`);
                 
-                if (checkbox.checked && select.value) {
-                    activeWebSearches++;
-                    logToDebug(`Starting web search for ${category}`);
+                generateResponseForCategory(category, true).then(() => {
+                    logToDebug(`Web search completed for ${category}`);
                     
-                    // Fire and forget - no await, no chaining
-                    generateResponseForCategory(category, true).then(() => {
-                        logToDebug(`Web search completed for ${category}`);
-                        
-                        // Collect result
-                        const responseEl = document.getElementById(`response-${category}`);
-                        if (responseEl) {
-                            const content = responseEl.textContent || responseEl.innerText;
-                            if (content && !content.includes('Select a model') && !content.includes('Generating response')) {
-                                webSearchResults[category] = content;
-                                logToDebug(`Collected web search result for ${category}: ${content.length} chars`);
-                            }
+                    // Collect result
+                    const responseEl = document.getElementById(`response-${category}`);
+                    if (responseEl) {
+                        const content = responseEl.textContent || responseEl.innerText;
+                        if (content && !content.includes('Select a model') && !content.includes('Generating response')) {
+                            webSearchResults[category] = content;
+                            logToDebug(`Collected web search result for ${category}: ${content.length} chars`);
                         }
-                    }).catch(error => {
-                        logToDebug(`Web search error for ${category}: ${error.message}`);
-                    });
-                }
-            });
-            
-            if (activeWebSearches === 0) {
-                showNotification('Please select at least one web search model');
+                    }
+                }).catch(error => {
+                    logToDebug(`Web search error for ${category}: ${error.message}`);
+                });
+                
+                showNotification('Running Web Search 1 (Goku)...');
             } else {
-                showNotification(`Running ${activeWebSearches} web search models...`);
+                showNotification('Please select and enable Web Search 1 (Goku)');
+            }
+        });
+
+        // Web Search 2 Button - Vegeta only
+        document.getElementById('websearch2-btn').addEventListener('click', () => {
+            logToDebug('WEB SEARCH 2 BUTTON CLICKED!');
+            
+            const mainPrompt = document.getElementById('main-prompt').value;
+            if (!mainPrompt.trim()) {
+                showNotification('Please enter a main prompt');
+                return;
+            }
+            
+            const category = 'nappa';
+            const checkbox = document.getElementById(`enable-${category}`);
+            const select = document.getElementById(`model-${category}`);
+            
+            if (checkbox.checked && select.value) {
+                logToDebug(`Starting web search for ${category}`);
+                
+                generateResponseForCategory(category, true).then(() => {
+                    logToDebug(`Web search completed for ${category}`);
+                    
+                    // Collect result
+                    const responseEl = document.getElementById(`response-${category}`);
+                    if (responseEl) {
+                        const content = responseEl.textContent || responseEl.innerText;
+                        if (content && !content.includes('Select a model') && !content.includes('Generating response')) {
+                            webSearchResults[category] = content;
+                            logToDebug(`Collected web search result for ${category}: ${content.length} chars`);
+                        }
+                    }
+                }).catch(error => {
+                    logToDebug(`Web search error for ${category}: ${error.message}`);
+                });
+                
+                showNotification('Running Web Search 2 (Vegeta)...');
+            } else {
+                showNotification('Please select and enable Web Search 2 (Vegeta)');
             }
         });
 
@@ -943,13 +927,5 @@ No description available
 </body>
 </html>
 
-```
 
-## Metadata
-- **Extracted**: 2025-07-27T19:57:35.551Z
-- **Source**: https://poe.com/edit_bot?bot=VG-CUL
-- **Bot Type**: Canvas App
-- **Code Length**: 49604 characters
 
----
-*Extracted using VG Master Bot Automation*

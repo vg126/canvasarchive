@@ -1,10 +1,3 @@
-# VG-FTUAI
-
-## Description
-No description available
-
-## Canvas Code
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,6 +94,7 @@ No description available
                     <select id="model-good" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
                         <option value="Claude-Haiku-3">Claude-Haiku-3</option>
+                        <option value="Claude-Sonnet-3.5">Claude-Sonnet-3.5</option>
                         <option value="DeepSeek-R1-FW">DeepSeek-R1-FW</option>
                         <option value="GPT-3.5-Turbo">GPT-3.5-Turbo</option>
                         <option value="GPT-4o">GPT-4o</option>
@@ -110,6 +104,28 @@ No description available
                     </select>
                 </div>
                 <div id="cost-good" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+            </div>
+
+            <!-- pointguzzlers -->
+            <div class="dropdown-container">
+                <label class="block text-sm font-medium mb-2">pointguzzlers</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="enable-guzzler" class="model-checkbox" data-category="guzzler">
+                    <select id="model-guzzler" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                        <option value="">Select Model</option>
+                        <option value="Claude-Opus-4">Claude-Opus-4</option>
+                        <option value="Claude-Opus-4-Reasoning">Claude-Opus-4-Reasoning</option>
+                        <option value="o1-pro">o1-pro</option>
+                        <option value="o1-preview">o1-preview</option>
+                        <option value="GPT-4.5-Preview">GPT-4.5-Preview</option>
+                        <option value="o3-pro">o3-pro</option>
+                        <option value="o1">o1</option>
+                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
+                        <option value="Claude-Sonnet-3.7-Reasoning">Claude-Sonnet-3.7-Reasoning</option>
+                        <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
+                    </select>
+                </div>
+                <div id="cost-guzzler" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
             <!-- Gemini Choice -->
@@ -125,53 +141,78 @@ No description available
                         <option value="Inception-Mercury-Coder">Inception-Mercury-Coder</option>
                         <option value="Hermes-3-70B">Hermes-3-70B</option>
                         <option value="GPT-Researcher">GPT-Researcher</option>
-                        <option value="Claude-Opus-4">Claude-Opus-4</option>
-                        <option value="Llama-4-Maverick-B10">Llama-4-Maverick-B10</option>
-                        <option value="Gemini-2.5-Flash">Gemini-2.5-Flash</option>
-                        <option value="Llama-4-Maverick">Llama-4-Maverick</option>
-                        <option value="GPT-4.1-mini">GPT-4.1-mini</option>
-                        <option value="MiniMax-M1">MiniMax-M1</option>
-                        <option value="Gemini-2.0-Flash">Gemini-2.0-Flash</option>
-                        <option value="o1-preview">o1-preview</option>
-                        <option value="GPT-4.5-Preview">GPT-4.5-Preview</option>
-                        <option value="o3-pro">o3-pro</option>
-                        <option value="o1">o1</option>
-                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
-                        <option value="Claude-Sonnet-3.7-Reasoning">Claude-Sonnet-3.7-Reasoning</option>
-                        <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
                     </select>
                 </div>
                 <div id="cost-gemini" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
-            <!-- Exotica -->
+            <!-- Exotica2 -->
             <div class="dropdown-container">
-                <label class="block text-sm font-medium mb-2">Exotica</label>
+                <label class="block text-sm font-medium mb-2">Exotica2</label>
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" id="enable-exotica" class="model-checkbox" data-category="exotica">
-                    <select id="model-exotica" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                    <input type="checkbox" id="enable-exotica2" class="model-checkbox" data-category="exotica2">
+                    <select id="model-exotica2" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
                         <option value="Llama-3.1-Nemotron">Llama-3.1-Nemotron</option>
+                        <option value="Llama-4-Maverick-B10">Llama-4-Maverick-B10</option>
                         <option value="Lyria">Lyria</option>
                         <option value="MarkItDown">MarkItDown</option>
                         <option value="Minimax-M1">Minimax-M1</option>
                         <option value="Mixtral8x22b-Inst-FW">Mixtral8x22b-Inst-FW</option>
+                        <option value="Perplexity-R1-1776">Perplexity-R1-1776</option>
                         <option value="Phi-4-DI">Phi-4-DI</option>
                         <option value="Python">Python</option>
                         <option value="Qwen-3-235B-T">Qwen-3-235B-T</option>
                         <option value="Reka-Core">Reka-Core</option>
                         <option value="Solar-Pro">Solar-Pro</option>
                         <option value="Tako">Tako</option>
+                    </select>
+                </div>
+                <div id="cost-exotica2" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+            </div>
+
+            <!-- Exotica1 -->
+            <div class="dropdown-container">
+                <label class="block text-sm font-medium mb-2">Exotica1</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="enable-exotica1" class="model-checkbox" data-category="exotica1">
+                    <select id="model-exotica1" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                        <option value="">Select Model</option>
                         <option value="Aya-Expanse-32B">Aya-Expanse-32B</option>
                         <option value="Command-R-Plus">Command-R-Plus</option>
                         <option value="DeepClaude">DeepClaude</option>
                         <option value="DeepSeek-V3">DeepSeek-V3</option>
                         <option value="Gemma-3-27B">Gemma-3-27B</option>
+                        <option value="GPT-Researcher">GPT-Researcher</option>
+                        <option value="Hermes-3-70B">Hermes-3-70B</option>
+                        <option value="Inception-Mercury-Coder">Inception-Mercury-Coder</option>
                         <option value="Kimi-K2-Instruct">Kimi-K2-Instruct</option>
                         <option value="Kimi-K2-T">Kimi-K2-T</option>
                     </select>
                 </div>
-                <div id="cost-exotica" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+                <div id="cost-exotica1" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
+            </div>
+
+            <!-- Context Window kings -->
+            <div class="dropdown-container">
+                <label class="block text-sm font-medium mb-2">Context Window kings</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="enable-context" class="model-checkbox" data-category="context">
+                    <select id="model-context" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
+                        <option value="">Select Model</option>
+                        <option value="Llama-4-Scout-B10">Llama-4-Scout-B10</option>
+                        <option value="Llama-4-Maverick">Llama-4-Maverick</option>
+                        <option value="Llama-4-Maverick-B10">Llama-4-Maverick-B10</option>
+                        <option value="GPT-4.1">GPT-4.1</option>
+                        <option value="Gemini-2.5-Pro">Gemini-2.5-Pro</option>
+                        <option value="Gemini-2.5-Flash">Gemini-2.5-Flash</option>
+                        <option value="GPT-4.1-mini">GPT-4.1-mini</option>
+                        <option value="MiniMax-M1">MiniMax-M1</option>
+                        <option value="Gemini-2.0-Flash">Gemini-2.0-Flash</option>
+                        <option value="Llama-3.1-Nemotron">Llama-3.1-Nemotron</option>
+                    </select>
+                </div>
+                <div id="cost-context" class="cost-badge text-white text-xs px-2 py-1 rounded-full mt-1 hidden"></div>
             </div>
 
             <!-- Web Search -->
@@ -189,11 +230,19 @@ No description available
                         <option value="GPT-4o-Search">GPT-4o-Search</option>
                         <option value="Claude-Opus-4-Search">Claude-Opus-4-Search</option>
                         <option value="Claude-Sonnet-4-Search">Claude-Sonnet-4-Search</option>
+                        <option value="Claude-Sonnet-3.7-Search">Claude-Sonnet-3.7-Search</option>
+                        <option value="Claude-Sonnet-3.5-Search">Claude-Sonnet-3.5-Search</option>
+                        <option value="Claude-Haiku-3.5-Search">Claude-Haiku-3.5-Search</option>
                         <option value="Perplexity-Sonar-Rsn">Perplexity-Sonar-Rsn</option>
                         <option value="Perplexity-Sonar">Perplexity-Sonar</option>
                         <option value="GPT-Researcher">GPT-Researcher</option>
                         <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
                         <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
+                        <option value="GPT-4o-mini-Search">GPT-4o-mini-Search</option>
+                        <option value="Gemini-1.5-Pro-Search">Gemini-1.5-Pro-Search</option>
+                        <option value="Gemini-1.5-Flash-Search">Gemini-1.5-Flash-Search</option>
+                        <option value="Reka-Research">Reka-Research</option>
+                        <option value="ChatGPT-4o-Latest">ChatGPT-4o-Latest</option>
                     </select>
                     <span class="text-blue-500 text-sm px-2">🔍</span>
                 </div>
@@ -207,9 +256,22 @@ No description available
                     <input type="checkbox" id="enable-websearch2" class="model-checkbox" data-category="websearch2">
                     <select id="model-websearch2" class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-base">
                         <option value="">Select Model</option>
+                        <option value="Web-Search">Web-Search</option>
+                        <option value="Gemini-2.5-Pro">Gemini-2.5-Pro</option>
+                        <option value="Gemini-2.5-Flash">Gemini-2.5-Flash</option>
+                        <option value="Gemini-2.5-Flash-Lite-Preview">Gemini-2.5-Flash-Lite-Preview</option>
+                        <option value="Gemini-2.0-Flash">Gemini-2.0-Flash</option>
+                        <option value="GPT-4o-Search">GPT-4o-Search</option>
+                        <option value="Claude-Opus-4-Search">Claude-Opus-4-Search</option>
+                        <option value="Claude-Sonnet-4-Search">Claude-Sonnet-4-Search</option>
                         <option value="Claude-Sonnet-3.7-Search">Claude-Sonnet-3.7-Search</option>
                         <option value="Claude-Sonnet-3.5-Search">Claude-Sonnet-3.5-Search</option>
                         <option value="Claude-Haiku-3.5-Search">Claude-Haiku-3.5-Search</option>
+                        <option value="Perplexity-Sonar-Rsn">Perplexity-Sonar-Rsn</option>
+                        <option value="Perplexity-Sonar">Perplexity-Sonar</option>
+                        <option value="GPT-Researcher">GPT-Researcher</option>
+                        <option value="Perplexity-Sonar-Pro">Perplexity-Sonar-Pro</option>
+                        <option value="Perplexity-Sonar-Rsn-Pro">Perplexity-Sonar-Rsn-Pro</option>
                         <option value="GPT-4o-mini-Search">GPT-4o-mini-Search</option>
                         <option value="Gemini-1.5-Pro-Search">Gemini-1.5-Pro-Search</option>
                         <option value="Gemini-1.5-Flash-Search">Gemini-1.5-Flash-Search</option>
@@ -301,7 +363,18 @@ No description available
                 </div>
             </div>
 
-
+            <!-- pointguzzlers Response -->
+            <div class="response-container" data-category="guzzler">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-semibold text-lg">pointguzzlers</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="guzzler">
+                        Copy
+                    </button>
+                </div>
+                <div id="response-guzzler" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                    <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
+                </div>
+            </div>
 
             <!-- Gemini Choice Response -->
             <div class="response-container" data-category="gemini">
@@ -316,15 +389,41 @@ No description available
                 </div>
             </div>
 
-            <!-- Exotica Response -->
-            <div class="response-container" data-category="exotica">
+            <!-- Exotica2 Response -->
+            <div class="response-container" data-category="exotica2">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-lg">Exotica</h3>
-                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="exotica">
+                    <h3 class="font-semibold text-lg">Exotica2</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="exotica2">
                         Copy
                     </button>
                 </div>
-                <div id="response-exotica" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                <div id="response-exotica2" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                    <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
+                </div>
+            </div>
+
+            <!-- Exotica1 Response -->
+            <div class="response-container" data-category="exotica1">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-semibold text-lg">Exotica1</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="exotica1">
+                        Copy
+                    </button>
+                </div>
+                <div id="response-exotica1" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
+                    <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
+                </div>
+            </div>
+
+            <!-- Context Window kings Response -->
+            <div class="response-container" data-category="context">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-semibold text-lg">Context Window kings</h3>
+                    <button class="copy-individual px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600 transition-colors" data-category="context">
+                        Copy
+                    </button>
+                </div>
+                <div id="response-context" class="response-box p-4 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-auto">
                     <p class="text-gray-500 dark:text-gray-400 italic">Select a model and generate to see response</p>
                 </div>
             </div>
@@ -556,7 +655,7 @@ No description available
         }
 
         // Event listeners for model selection
-        const categories = ['vg', 'good', 'gemini', 'exotica', 'websearch', 'websearch2'];
+        const categories = ['vg', 'good', 'guzzler', 'gemini', 'exotica2', 'exotica1', 'context', 'websearch', 'websearch2'];
         
         categories.forEach(category => {
             const select = document.getElementById(`model-${category}`);
@@ -662,172 +761,152 @@ No description available
             }
         });
 
-        // Generate responses for category - FIXED to actually wait for completion
+        // Generate responses for category with MASSIVE debugging
         async function generateResponseForCategory(category, isWebSearchOnly = false) {
-            return new Promise(async (resolve, reject) => {
-                logToDebug(`🎯 ENTERING generateResponseForCategory for ${category}`);
+            logToDebug(`🎯 ENTERING generateResponseForCategory for ${category}`);
+            
+            const checkbox = document.getElementById(`enable-${category}`);
+            const select = document.getElementById(`model-${category}`);
+            const responseEl = document.getElementById(`response-${category}`);
+            
+            logToDebug(`🔍 Elements found - checkbox: ${!!checkbox}, select: ${!!select}, responseEl: ${!!responseEl}`);
+            logToDebug(`🔍 Checkbox checked: ${checkbox?.checked}, select value: ${select?.value}`);
+            
+            if (!checkbox.checked || !select.value) {
+                logToDebug(`❌ Skipping ${category} - not enabled or no model selected`);
+                return;
+            }
+            
+            const mainPrompt = document.getElementById('main-prompt').value;
+            const systemPrompt = document.getElementById('system-prompt').value;
+            const thinkingBudget = document.getElementById('thinking-budget').value;
+            
+            logToDebug(`📄 Prompts - main: ${mainPrompt.length} chars, system: ${systemPrompt.length} chars, budget: ${thinkingBudget}`);
+            
+            if (!mainPrompt.trim()) {
+                logToDebug(`❌ Empty main prompt for ${category}`);
+                showNotification('❌ Please enter a main prompt');
+                return;
+            }
+            
+            // Show loading state
+            logToDebug(`🔄 Setting loading state for ${category}`);
+            responseEl.innerHTML = '<div class="flex items-center justify-center"><div class="loading-spinner"></div><span class="ml-2">Generating response...</span></div>';
+            responseEl.parentElement.querySelector('.response-box').classList.add('active');
+            
+            logToDebug(`🚀 Starting API generation for ${category} with model ${select.value}`);
+            
+            try {
+                // Check if Poe API is available
+                logToDebug(`🔌 Checking Poe API availability...`);
+                if (!window.Poe) {
+                    logToDebug(`❌ window.Poe is not available`);
+                    throw new Error('window.Poe not available');
+                }
+                if (!window.Poe.sendUserMessage) {
+                    logToDebug(`❌ window.Poe.sendUserMessage is not available`);
+                    throw new Error('sendUserMessage not available');
+                }
+                logToDebug(`✅ Poe API is available`);
                 
-                const checkbox = document.getElementById(`enable-${category}`);
-                const select = document.getElementById(`model-${category}`);
-                const responseEl = document.getElementById(`response-${category}`);
+                // Construct the full prompt - sanitize markdown headers
+                let cleanPrompt = mainPrompt.replace(/^#+\s/gm, ''); // Remove markdown headers
+                let fullPrompt = `@${select.value} `;
                 
-                logToDebug(`🔍 Elements found - checkbox: ${!!checkbox}, select: ${!!select}, responseEl: ${!!responseEl}`);
-                logToDebug(`🔍 Checkbox checked: ${checkbox?.checked}, select value: ${select?.value}`);
-                
-                if (!checkbox.checked || !select.value) {
-                    logToDebug(`❌ Skipping ${category} - not enabled or no model selected`);
-                    resolve();
-                    return;
+                // Add system instruction for aggregator awareness
+                let combinedSystemPrompt = SYSTEM_INSTRUCTION;
+                if (systemPrompt) {
+                    combinedSystemPrompt += '\n\n' + systemPrompt;
                 }
                 
-                const mainPrompt = document.getElementById('main-prompt').value;
-                const systemPrompt = document.getElementById('system-prompt').value;
-                const thinkingBudget = document.getElementById('thinking-budget').value;
+                fullPrompt += combinedSystemPrompt + '\n\n';
+                fullPrompt += cleanPrompt;
                 
-                logToDebug(`📄 Prompts - main: ${mainPrompt.length} chars, system: ${systemPrompt.length} chars, budget: ${thinkingBudget}`);
-                
-                if (!mainPrompt.trim()) {
-                    logToDebug(`❌ Empty main prompt for ${category}`);
-                    showNotification('❌ Please enter a main prompt');
-                    resolve();
-                    return;
+                if (thinkingBudget && parseInt(thinkingBudget) > 0) {
+                    fullPrompt += ` --thinking_budget ${thinkingBudget}`;
                 }
                 
-                // Show loading state
-                logToDebug(`🔄 Setting loading state for ${category}`);
-                responseEl.innerHTML = '<div class="flex items-center justify-center"><div class="loading-spinner"></div><span class="ml-2">Generating response...</span></div>';
-                responseEl.parentElement.querySelector('.response-box').classList.add('active');
+                logToDebug(`📨 Final prompt for ${category}: ${fullPrompt.length} chars starting with: ${fullPrompt.substring(0, 100)}...`);
                 
-                logToDebug(`🚀 Starting API generation for ${category} with model ${select.value}`);
+                // Register unique handler for this response
+                const handlerName = `response-${category}-${Date.now()}`;
+                let hasReceivedResponse = false;
                 
-                try {
-                    // Check if Poe API is available
-                    logToDebug(`🔌 Checking Poe API availability...`);
-                    if (!window.Poe) {
-                        logToDebug(`❌ window.Poe is not available`);
-                        throw new Error('window.Poe not available');
-                    }
-                    if (!window.Poe.sendUserMessage) {
-                        logToDebug(`❌ window.Poe.sendUserMessage is not available`);
-                        throw new Error('sendUserMessage not available');
-                    }
-                    logToDebug(`✅ Poe API is available`);
+                logToDebug(`🎭 Registering handler: ${handlerName}`);
+                
+                window.Poe.registerHandler(handlerName, (result) => {
+                    hasReceivedResponse = true;
+                    logToDebug(`📥 Handler ${handlerName} received result: ${JSON.stringify(result)}`);
                     
-                    // Construct the full prompt - sanitize markdown headers
-                    let cleanPrompt = mainPrompt.replace(/^#+\s/gm, ''); // Remove markdown headers
-                    let fullPrompt = `@${select.value} `;
+                    const msg = result.responses[0];
+                    logToDebug(`📝 Message status: ${msg.status}, content length: ${msg.content?.length || 0}`);
                     
-                    // Add system instruction for aggregator awareness
-                    let combinedSystemPrompt = SYSTEM_INSTRUCTION;
-                    if (systemPrompt) {
-                        combinedSystemPrompt += '\n\n' + systemPrompt;
-                    }
-                    
-                    fullPrompt += combinedSystemPrompt + '\n\n';
-                    
-                    // Add web search context if available and this is not a web search category
-                    if (!isWebSearchOnly && Object.keys(webSearchResults).length > 0) {
-                        fullPrompt += '[WEB SEARCH CONTEXT]\n';
-                        Object.entries(webSearchResults).forEach(([category, content]) => {
-                            const categoryName = category === 'websearch' ? 'Web Search' : 'Web Search 2';
-                            fullPrompt += `${categoryName}: ${content}\n\n`;
-                        });
-                        fullPrompt += '[END WEB SEARCH CONTEXT]\n\n';
-                        logToDebug(`📄 Added web search context to ${category}: ${Object.keys(webSearchResults).length} results`);
-                    }
-                    
-                    fullPrompt += cleanPrompt;
-                    
-                    if (thinkingBudget && parseInt(thinkingBudget) > 0) {
-                        fullPrompt += ` --thinking_budget ${thinkingBudget}`;
-                    }
-                    
-                    logToDebug(`📨 Final prompt for ${category}: ${fullPrompt.length} chars starting with: ${fullPrompt.substring(0, 100)}...`);
-                    
-                    // Register unique handler for this response
-                    const handlerName = `response-${category}-${Date.now()}`;
-                    
-                    logToDebug(`🎭 Registering handler: ${handlerName}`);
-                    
-                    window.Poe.registerHandler(handlerName, (result) => {
-                        logToDebug(`📥 Handler ${handlerName} received result: ${JSON.stringify(result)}`);
-                        
-                        const msg = result.responses[0];
-                        logToDebug(`📝 Message status: ${msg.status}, content length: ${msg.content?.length || 0}`);
-                        
-                        if (msg.status === 'error') {
-                            logToDebug(`❌ Error response for ${category}: ${msg.statusText || msg.content}`);
-                            responseEl.innerHTML = `<div class="text-red-500"><strong>Error:</strong> ${msg.statusText || msg.content}</div>`;
-                            responseEl.parentElement.querySelector('.response-box').classList.remove('active');
-                            // RESOLVE even on error so we don't hang
-                            resolve();
-                        } else if (msg.status === 'incomplete') {
-                            logToDebug(`🔄 Incomplete response for ${category}, updating UI`);
-                            try {
-                                const modelName = msg.senderId || select.value;
-                                responseEl.innerHTML = `<div class="text-xs text-gray-500 mb-2"><strong>Model:</strong> ${modelName}</div>` + marked.parse(msg.content);
-                            } catch (e) {
-                                logToDebug(`⚠️ Markdown parse error for ${category}: ${e.message}`);
-                                responseEl.innerHTML = msg.content; // Fallback to plain text
-                            }
-                            // Don't resolve yet - wait for complete
-                        } else if (msg.status === 'complete') {
-                            logToDebug(`✅ Complete response for ${category}`);
-                            try {
-                                const modelName = msg.senderId || select.value;
-                                responseEl.innerHTML = `<div class="text-xs text-gray-500 mb-2"><strong>Model:</strong> ${modelName}</div>` + marked.parse(msg.content);
-                            } catch (e) {
-                                logToDebug(`⚠️ Markdown parse error for ${category}: ${e.message}`);
-                                responseEl.innerHTML = msg.content;
-                            }
-                            responseEl.parentElement.querySelector('.response-box').classList.remove('active');
-                            // NOW resolve - response is actually complete
-                            logToDebug(`🏁 RESOLVING Promise for ${category} - response complete`);
-                            resolve();
+                    if (msg.status === 'error') {
+                        logToDebug(`❌ Error response for ${category}: ${msg.statusText || msg.content}`);
+                        responseEl.innerHTML = `<div class="text-red-500"><strong>Error:</strong> ${msg.statusText || msg.content}</div>`;
+                        responseEl.parentElement.querySelector('.response-box').classList.remove('active');
+                    } else if (msg.status === 'incomplete') {
+                        logToDebug(`🔄 Incomplete response for ${category}, updating UI`);
+                        try {
+                            const modelName = msg.senderId || select.value;
+                            responseEl.innerHTML = `<div class="text-xs text-gray-500 mb-2"><strong>Model:</strong> ${modelName}</div>` + marked.parse(msg.content);
+                        } catch (e) {
+                            logToDebug(`⚠️ Markdown parse error for ${category}: ${e.message}`);
+                            responseEl.innerHTML = msg.content; // Fallback to plain text
                         }
-                    });
-                    
-                    // Add timeout for stuck responses
-                    const timeoutId = setTimeout(() => {
+                    } else if (msg.status === 'complete') {
+                        logToDebug(`✅ Complete response for ${category}`);
+                        try {
+                            const modelName = msg.senderId || select.value;
+                            responseEl.innerHTML = `<div class="text-xs text-gray-500 mb-2"><strong>Model:</strong> ${modelName}</div>` + marked.parse(msg.content);
+                        } catch (e) {
+                            logToDebug(`⚠️ Markdown parse error for ${category}: ${e.message}`);
+                            responseEl.innerHTML = msg.content;
+                        }
+                        responseEl.parentElement.querySelector('.response-box').classList.remove('active');
+                    }
+                });
+                
+                // Add timeout for stuck responses
+                const timeoutId = setTimeout(() => {
+                    if (!hasReceivedResponse) {
                         logToDebug(`⏰ Timeout for ${category} - no response received`);
                         responseEl.innerHTML = '<div class="text-yellow-600"><strong>Timeout:</strong> Response taking longer than expected. This might be a Poe server issue. Try again later.</div>';
                         responseEl.parentElement.querySelector('.response-box').classList.remove('active');
-                        // RESOLVE on timeout so we don't hang forever
-                        resolve();
-                    }, 180000); // 3 minutes timeout
-                    
-                    // Send the message
-                    logToDebug(`📤 Sending message for ${category}...`);
-                    const result = await window.Poe.sendUserMessage(fullPrompt, {
-                        handler: handlerName,
-                        stream: true,
-                        openChat: false
-                    });
-                    
-                    logToDebug(`📤 Message sent for ${category}, result: ${JSON.stringify(result)}`);
-                    // DON'T resolve here - wait for handler to get 'complete' status
-                    
-                } catch (error) {
-                    logToDebug(`💥 ERROR in generateResponseForCategory for ${category}: ${error.message}`);
-                    logToDebug(`💥 Error stack: ${error.stack}`);
-                    
-                    responseEl.innerHTML = `<div class="text-red-500"><strong>Error:</strong> ${error.message}<br><small>Check debug log for details.</small></div>`;
-                    responseEl.parentElement.querySelector('.response-box').classList.remove('active');
-                    
-                    // Additional debugging info
-                    logToDebug(`🔍 Available Poe methods: ${window.Poe ? Object.keys(window.Poe).join(', ') : 'Poe not available'}`);
-                    logToDebug(`🔍 Error type: ${error.constructor.name}`);
-                    
-                    // RESOLVE on error so we don't hang
-                    resolve();
+                    }
+                }, 180000); // 3 minutes timeout
+                
+                // Send the message
+                logToDebug(`📤 Sending message for ${category}...`);
+                const result = await window.Poe.sendUserMessage(fullPrompt, {
+                    handler: handlerName,
+                    stream: true,
+                    openChat: false
+                });
+                
+                logToDebug(`📤 Message sent for ${category}, result: ${JSON.stringify(result)}`);
+                
+                // Clear timeout if successful
+                if (hasReceivedResponse) {
+                    clearTimeout(timeoutId);
                 }
-            });
+                
+            } catch (error) {
+                logToDebug(`💥 ERROR in generateResponseForCategory for ${category}: ${error.message}`);
+                logToDebug(`💥 Error stack: ${error.stack}`);
+                
+                responseEl.innerHTML = `<div class="text-red-500"><strong>Error:</strong> ${error.message}<br><small>Check debug log for details.</small></div>`;
+                responseEl.parentElement.querySelector('.response-box').classList.remove('active');
+                
+                // Additional debugging info
+                logToDebug(`🔍 Available Poe methods: ${window.Poe ? Object.keys(window.Poe).join(', ') : 'Poe not available'}`);
+                logToDebug(`🔍 Error type: ${error.constructor.name}`);
+            }
+            
+            logToDebug(`🏁 EXITING generateResponseForCategory for ${category}`);
         }
 
-        // Web search result storage
-        let webSearchResults = {};
-
-        // Main generate button - with WEB SEARCH FIRST logic
+        // Main generate button - with intensive debugging
         document.getElementById('generate-btn').addEventListener('click', async () => {
             logToDebug('🔥 GENERATE BUTTON CLICKED!');
             
@@ -851,79 +930,22 @@ No description available
                 return;
             }
             
-            // Clear previous web search results
-            webSearchResults = {};
+            logToDebug(`🚀 Starting generation for categories: ${checkedCategories.join(', ')}`);
             
-            // Separate web search categories from others
-            const webSearchCategories = checkedCategories.filter(cat => cat === 'websearch' || cat === 'websearch2');
-            const otherCategories = checkedCategories.filter(cat => cat !== 'websearch' && cat !== 'websearch2');
-            
-            logToDebug(`🔍 Web search categories: ${webSearchCategories.join(', ')}`);
-            logToDebug(`📝 Other categories: ${otherCategories.join(', ')}`);
-            
-            // PHASE 1: Run web search first if any web search categories are selected
-            if (webSearchCategories.length > 0) {
-                logToDebug('🔍 PHASE 1: Running web search first...');
-                showNotification('🔍 Running web search first...');
+            // Generate responses for all selected categories with detailed logging
+            for (let i = 0; i < checkedCategories.length; i++) {
+                const category = checkedCategories[i];
+                logToDebug(`🔄 Processing category ${i + 1}/${checkedCategories.length}: ${category}`);
                 
-                // Run all web search categories and wait for completion
-                const webSearchPromises = webSearchCategories.map(async (category) => {
-                    logToDebug(`🔍 Starting web search for ${category}`);
-                    try {
-                        await generateResponseForCategory(category, true);
-                        logToDebug(`✅ Web search completed for ${category}`);
-                    } catch (error) {
-                        logToDebug(`❌ Web search error for ${category}: ${error.message}`);
-                    }
-                });
-                
-                await Promise.all(webSearchPromises);
-                logToDebug('🔍 All web search categories completed');
-                
-                // Collect web search results
-                webSearchCategories.forEach(category => {
-                    const responseEl = document.getElementById(`response-${category}`);
-                    if (responseEl) {
-                        const content = responseEl.textContent || responseEl.innerText;
-                        if (content && !content.includes('Select a model') && !content.includes('Generating response')) {
-                            webSearchResults[category] = content;
-                            logToDebug(`📄 Collected web search result for ${category}: ${content.length} chars`);
-                        } else {
-                            webSearchResults[category] = '[No results or error]';
-                            logToDebug(`⚠️ No valid web search result for ${category}`);
-                        }
-                    }
-                });
-            }
-            
-            // PHASE 2: Run other categories with web search context
-            if (otherCategories.length > 0) {
-                if (webSearchCategories.length > 0) {
-                    logToDebug('📝 PHASE 2: Running other models with web search context...');
-                    showNotification('📝 Now generating other responses with web search context...');
-                } else {
-                    logToDebug('🚀 Running all categories (no web search)');
-                }
-                
-                for (let i = 0; i < otherCategories.length; i++) {
-                    const category = otherCategories[i];
-                    logToDebug(`🔄 Processing category ${i + 1}/${otherCategories.length}: ${category}`);
-                    
-                    try {
-                        await generateResponseForCategory(category, false);
-                        logToDebug(`✅ Finished processing ${category}`);
-                    } catch (error) {
-                        logToDebug(`❌ Error processing ${category}: ${error.message}`);
-                    }
+                try {
+                    await generateResponseForCategory(category, false);
+                    logToDebug(`✅ Finished processing ${category}`);
+                } catch (error) {
+                    logToDebug(`❌ Error processing ${category}: ${error.message}`);
                 }
             }
             
             logToDebug('🏁 All categories processed');
-            if (webSearchCategories.length > 0 && otherCategories.length > 0) {
-                showNotification('✅ All responses generated with web search context!');
-            } else {
-                showNotification('✅ All responses generated!');
-            }
         });
 
         // Debug: Log when page loads
@@ -936,13 +958,3 @@ No description available
 </body>
 </html>
 
-```
-
-## Metadata
-- **Extracted**: 2025-07-27T20:01:15.419Z
-- **Source**: https://poe.com/edit_bot?bot=VG-FTUAI
-- **Bot Type**: Canvas App
-- **Code Length**: 48977 characters
-
----
-*Extracted using VG Master Bot Automation*
