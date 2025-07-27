@@ -1,6 +1,11 @@
-Name: VG-IMGrok
-Description: Multi image generation engine aggregator. Choose up to 10 state of the art engines for a single prompt and see the output simultaneously.
-Code:<!DOCTYPE html>
+# VG-IMGrok
+
+## Description
+No description available
+
+## Canvas Code
+```html
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -330,7 +335,7 @@ Code:<!DOCTYPE html>
                     <div class="inline-flex items-center text-gray-600 dark:text-gray-400">
                         <svg class="animate-spin -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         <div>
                             <div id="statusText">Starting image generation...</div>
@@ -1187,7 +1192,7 @@ Limit to 6-7 variables maximum. Each variable should have exactly 5 options for 
                         <div class="text-gray-600 dark:text-gray-400">
                             <svg class="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                             <div class="font-semibold">${result.modelName}</div>
                             <div class="text-sm">Generating...</div>
@@ -2117,3 +2122,18 @@ Generate 3-4 NEW variables maximum. Each variable should have exactly 5 options.
 </html>
 
 
+
+
+
+
+
+```
+
+## Metadata
+- **Extracted**: 2025-07-27T19:15:39.939Z
+- **Source**: https://poe.com/edit_bot?bot=VG-IMGrok
+- **Bot Type**: Canvas App
+- **Code Length**: 100859 characters
+
+---
+*Extracted using VG Canvas App Extractor*
