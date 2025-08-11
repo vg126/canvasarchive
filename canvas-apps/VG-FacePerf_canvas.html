@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Perfectionist - Iterative AI Refinement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#059669',
+                        accent: '#10B981',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        /* TV Screen Styling */
+        .tv-screen {
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        .tv-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 49.5%,
+                rgba(0, 255, 0, 0.03) 50%,
+                transparent 50.5%
+            );
+            pointer-events: none;
+            border-radius: 1rem;
+        }
+        
+        .tv-header {
+            border-bottom: 1px solid #333;
+        }
+        
+        /* Cinema Frame Styling */
+        .cinema-frame {
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                inset 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .cinema-frame::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid #ffd700;
+            border-radius: 1.5rem;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 215, 0, 0.1) 0%,
+                transparent 25%,
+                transparent 75%,
+                rgba(255, 215, 0, 0.1) 100%
+            );
+            pointer-events: none;
+        }
+        
+        .cinema-inner {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animation for active states */
+        .tv-active {
+            animation: tvGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes tvGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.2); }
+        }
+        
+        /* Loading dots animation */
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">Face Perfectionist</h1>
+            <p class="text-gray-300">Iterative AI-driven face generation with reference matching</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Reference Image Upload -->
+            <div class="bg-gray-800 rounded-xl p-6">
+                <h2 class="text-xl font-semibold mb-4">Reference Image</h2>
+                <div id="uploadArea" class="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-primary transition-colors cursor-pointer">
+                    <div id="uploadPrompt">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="text-gray-300">Drop reference image or click to upload</p>
+                        <p class="text-sm text-gray-500 mt-2">This will be the target face to match</p>
+                    </div>
+                    <div id="imagePreview" class="hidden">
+                        <img id="previewImg" class="max-w-full max-h-48 mx-auto rounded-lg mb-3">
+                        <div class="flex justify-center gap-2">
+                            <button id="replaceBtn" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Replace</button>
+                            <button id="removeBtn" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" class="hidden" accept="image/*">
+            </div>
+
+            <!-- User Prompt -->
+            <div class="bg-gray-800 rounded-xl p-6">
+                <h2 class="text-xl font-semibold mb-4">Base Prompt</h2>
+                <textarea id="userPrompt" class="w-full p-4 bg-gray-700 border border-gray-600 rounded-lg text-white text-base resize-none" rows="6" placeholder="Describe the person you want to generate (face, build, style, etc.)..."></textarea>
+                <div class="mt-4 text-sm text-gray-400">
+                    <p>💡 Focus on facial features, expression, build, clothing, and overall style</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Configuration -->
+        <div class="bg-gray-800 rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Model Configuration</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Image Generation</label>
+                    <select id="generationModel" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white">
+                        <option value="@Flux-Kontext-Max">Flux Kontext Max</option>
+                        <option value="@Flux-Kontext-Pro">Flux Kontext Pro</option>
+                        <option value="@FLUX-schnell">FLUX Schnell</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Verification (Multimodal)</label>
+                    <select id="verificationModel" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white">
+                        <option value="@GPT-4.1-mini">GPT-4.1 Mini</option>
+                        <option value="@Claude-Sonnet-4">Claude Sonnet 4</option>
+                        <option value="@Gemini-2.0-Flash-Preview">Gemini 2.0 Flash</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Prompt Refinement (Text-only)</label>
+                    <select id="refinementModel" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white">
+                        <option value="@Command-R-Plus">Command R Plus</option>
+                        <option value="@Claude-Haiku">Claude Haiku</option>
+                        <option value="@GPT-4o-mini">GPT-4o Mini</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="bg-gray-800 rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Refinement Settings</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Target Score</label>
+                    <input type="number" id="targetScore" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white" value="85" min="60" max="100">
+                    <p class="text-xs text-gray-400 mt-1">Minimum matching score to stop iteration</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Max Iterations</label>
+                    <input type="number" id="maxIterations" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white" value="5" min="1" max="10">
+                    <p class="text-xs text-gray-400 mt-1">Maximum refinement attempts</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Focus Areas</label>
+                    <select id="focusAreas" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white">
+                        <option value="face">Face Primary</option>
+                        <option value="face-build">Face + Build</option>
+                        <option value="overall">Overall Match</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="text-center mb-8">
+            <div class="flex justify-center gap-4">
+                <button id="initBtn" class="bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    🚀 Initialize System
+                </button>
+                <button id="nextStepBtn" class="hidden bg-accent hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    ▶️ Next Step
+                </button>
+                <button id="resetBtn" class="hidden bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105">
+                    🔄 Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Process Flow TV Screens -->
+        <div id="processFlow" class="hidden mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Step 1: Generation Screen -->
+                <div class="tv-screen bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1 shadow-2xl">
+                    <div class="bg-black rounded-xl p-4 h-full">
+                        <div class="tv-header mb-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-green-400 font-mono text-lg">🎬 GENERATION</h3>
+                                <div id="genStatus" class="text-xs text-gray-400">STANDBY</div>
+                            </div>
+                            <div class="h-1 bg-gray-700 rounded mt-2">
+                                <div id="genProgress" class="h-1 bg-green-400 rounded transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="genContent" class="text-center text-gray-500 py-8">
+                            <div class="text-4xl mb-2">📷</div>
+                            <p>Waiting for generation...</p>
+                        </div>
+                        <div id="genPrompt" class="mt-4 p-3 bg-gray-900 rounded border border-gray-700 hidden">
+                            <div class="text-xs text-gray-400 mb-1">Current Prompt:</div>
+                            <div id="genPromptText" class="text-sm text-gray-300 font-mono"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Verification Screen -->
+                <div class="tv-screen bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1 shadow-2xl">
+                    <div class="bg-black rounded-xl p-4 h-full">
+                        <div class="tv-header mb-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-blue-400 font-mono text-lg">🔍 VERIFICATION</h3>
+                                <div id="verifyStatus" class="text-xs text-gray-400">STANDBY</div>
+                            </div>
+                            <div class="h-1 bg-gray-700 rounded mt-2">
+                                <div id="verifyProgress" class="h-1 bg-blue-400 rounded transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="verifyContent" class="text-center text-gray-500 py-8">
+                            <div class="text-4xl mb-2">🤖</div>
+                            <p>Waiting for verification...</p>
+                        </div>
+                        <div id="verifyResult" class="mt-4 p-3 bg-gray-900 rounded border border-gray-700 hidden">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs text-gray-400">Score:</span>
+                                <span id="verifyScore" class="text-2xl font-bold text-yellow-400">--</span>
+                            </div>
+                            <div class="text-xs text-gray-400 mb-1">Analysis:</div>
+                            <div id="verifyAnalysis" class="text-sm text-gray-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Refinement Screen -->
+                <div class="tv-screen bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1 shadow-2xl">
+                    <div class="bg-black rounded-xl p-4 h-full">
+                        <div class="tv-header mb-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-purple-400 font-mono text-lg">✨ REFINEMENT</h3>
+                                <div id="refineStatus" class="text-xs text-gray-400">STANDBY</div>
+                            </div>
+                            <div class="h-1 bg-gray-700 rounded mt-2">
+                                <div id="refineProgress" class="h-1 bg-purple-400 rounded transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="refineContent" class="text-center text-gray-500 py-8">
+                            <div class="text-4xl mb-2">🧠</div>
+                            <p>Waiting for refinement...</p>
+                        </div>
+                        <div id="refineResult" class="mt-4 p-3 bg-gray-900 rounded border border-gray-700 hidden">
+                            <div class="text-xs text-gray-400 mb-1">Refined Prompt:</div>
+                            <div id="refinedPromptText" class="text-sm text-gray-300 font-mono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cinema Final Result -->
+        <div id="cinemaSection" class="hidden mb-8">
+            <div class="cinema-frame bg-gradient-to-br from-yellow-900 via-yellow-800 to-yellow-700 p-8 rounded-3xl shadow-2xl">
+                <div class="cinema-inner bg-black rounded-2xl p-6 shadow-inner">
+                    <div class="text-center mb-6">
+                        <h2 class="text-3xl font-bold text-yellow-400 mb-2">🎭 FINAL MASTERPIECE 🎭</h2>
+                        <div class="flex justify-center items-center gap-4">
+                            <div class="text-yellow-300">Iteration: <span id="finalIteration" class="font-bold">-</span></div>
+                            <div class="text-yellow-300">Score: <span id="finalScore" class="font-bold text-2xl">-</span></div>
+                        </div>
+                    </div>
+                    <div id="finalImageContainer" class="text-center">
+                        <div class="inline-block p-4 bg-gradient-to-br from-gray-900 to-black rounded-xl shadow-2xl">
+                            <div id="finalImagePlaceholder" class="text-gray-500 py-16">
+                                <div class="text-6xl mb-4">🎬</div>
+                                <p>Your masterpiece will appear here...</p>
+                            </div>
+                            <img id="finalImage" class="hidden max-w-full max-h-96 rounded-lg shadow-lg" alt="Final generated image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Iteration History -->
+        <div id="historySection" class="hidden">
+            <div class="bg-gray-800 rounded-xl p-6">
+                <h2 class="text-xl font-semibold mb-6">📚 Iteration History</h2>
+                <div id="iterationHistory" class="space-y-4">
+                    <!-- History will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let uploadedFile = null;
+        let currentIteration = 0;
+        let bestScore = 0;
+        let iterationHistory = [];
+        let isRunning = false;
+        let currentStep = 'init'; // 'init', 'generate', 'verify', 'refine'
+        let currentPrompt = '';
+        let currentImageUrl = '';
+        let currentScore = 0;
+        let currentAnalysis = '';
+        let currentImprovements = '';
+
+        // DOM elements - Complete reference
+        const dom = {
+            // File upload
+            uploadArea: document.getElementById('uploadArea'),
+            fileInput: document.getElementById('fileInput'),
+            uploadPrompt: document.getElementById('uploadPrompt'),
+            imagePreview: document.getElementById('imagePreview'),
+            previewImg: document.getElementById('previewImg'),
+            replaceBtn: document.getElementById('replaceBtn'),
+            removeBtn: document.getElementById('removeBtn'),
+            
+            // User input
+            userPrompt: document.getElementById('userPrompt'),
+            generationModel: document.getElementById('generationModel'),
+            verificationModel: document.getElementById('verificationModel'),
+            refinementModel: document.getElementById('refinementModel'),
+            targetScore: document.getElementById('targetScore'),
+            maxIterations: document.getElementById('maxIterations'),
+            focusAreas: document.getElementById('focusAreas'),
+            
+            // Control buttons
+            initBtn: document.getElementById('initBtn'),
+            nextStepBtn: document.getElementById('nextStepBtn'),
+            resetBtn: document.getElementById('resetBtn'),
+            
+            // Process flow sections
+            processFlow: document.getElementById('processFlow'),
+            cinemaSection: document.getElementById('cinemaSection'),
+            historySection: document.getElementById('historySection'),
+            
+            // Generation TV screen
+            genStatus: document.getElementById('genStatus'),
+            genProgress: document.getElementById('genProgress'),
+            genContent: document.getElementById('genContent'),
+            genPrompt: document.getElementById('genPrompt'),
+            genPromptText: document.getElementById('genPromptText'),
+            
+            // Verification TV screen
+            verifyStatus: document.getElementById('verifyStatus'),
+            verifyProgress: document.getElementById('verifyProgress'),
+            verifyContent: document.getElementById('verifyContent'),
+            verifyResult: document.getElementById('verifyResult'),
+            verifyScore: document.getElementById('verifyScore'),
+            verifyAnalysis: document.getElementById('verifyAnalysis'),
+            
+            // Refinement TV screen
+            refineStatus: document.getElementById('refineStatus'),
+            refineProgress: document.getElementById('refineProgress'),
+            refineContent: document.getElementById('refineContent'),
+            refineResult: document.getElementById('refineResult'),
+            refinedPromptText: document.getElementById('refinedPromptText'),
+            
+            // Cinema section
+            finalIteration: document.getElementById('finalIteration'),
+            finalScore: document.getElementById('finalScore'),
+            finalImagePlaceholder: document.getElementById('finalImagePlaceholder'),
+            finalImage: document.getElementById('finalImage'),
+            
+            // History
+            iterationHistory: document.getElementById('iterationHistory')
+        };
+
+        // Poe handlers
+        window.Poe.registerHandler("generation-handler", handleGenerationResponse);
+        window.Poe.registerHandler("verification-handler", handleVerificationResponse);
+        window.Poe.registerHandler("refinement-handler", handleRefinementResponse);
+
+        // File handling
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            uploadedFile = file;
+            const reader = new FileReader();
+            reader.onload = e => {
+                dom.previewImg.src = e.target.result;
+                dom.uploadPrompt.classList.add('hidden');
+                dom.imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            uploadedFile = null;
+            dom.uploadPrompt.classList.remove('hidden');
+            dom.imagePreview.classList.add('hidden');
+            dom.fileInput.value = '';
+        }
+
+        // Validation
+        function validateInputs() {
+            if (!uploadedFile) {
+                showAlert('Please upload a reference image first.');
+                return false;
+            }
+            
+            const prompt = dom.userPrompt.value.trim();
+            if (!prompt) {
+                showAlert('Please enter a base prompt describing the person you want to generate.');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Manual step control system
+        function initializeSystem() {
+            if (!validateInputs()) return;
+            
+            // Initialize state
+            currentIteration = 1;
+            currentStep = 'generate';
+            currentPrompt = dom.userPrompt.value.trim();
+            bestScore = 0;
+            iterationHistory = [];
+            
+            // Show UI sections
+            dom.processFlow.classList.remove('hidden');
+            dom.cinemaSection.classList.remove('hidden');
+            dom.historySection.classList.remove('hidden');
+            
+            // Show control buttons
+            dom.initBtn.classList.add('hidden');
+            dom.nextStepBtn.classList.remove('hidden');
+            dom.resetBtn.classList.remove('hidden');
+            
+            // Set initial button text
+            dom.nextStepBtn.innerHTML = '🎬 Generate Image';
+            
+            // Show current prompt in generation screen
+            dom.genPrompt.classList.remove('hidden');
+            dom.genPromptText.textContent = currentPrompt;
+            
+            showAlert('System initialized! Click "Generate Image" to start the first iteration.');
+        }
+
+        function executeNextStep() {
+            if (isRunning) return;
+            
+            switch(currentStep) {
+                case 'generate':
+                    executeGeneration();
+                    break;
+                case 'verify':
+                    executeVerification();
+                    break;
+                case 'refine':
+                    executeRefinement();
+                    break;
+            }
+        }
+
+        function executeGeneration() {
+            setTVActive('generation');
+            dom.genStatus.textContent = 'GENERATING...';
+            dom.genProgress.style.width = '50%';
+            dom.genContent.innerHTML = '<div class="text-center"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-400 mx-auto mb-2"></div><p class="loading-dots">Generating image</p></div>';
+            
+            isRunning = true;
+            dom.nextStepBtn.disabled = true;
+            
+            const model = dom.generationModel.value;
+            
+            window.Poe.sendUserMessage(`${model} ${currentPrompt}`, {
+                handler: "generation-handler",
+                stream: false,
+                openChat: false,
+                attachments: uploadedFile ? [uploadedFile] : undefined,
+                handlerContext: { prompt: currentPrompt, step: 'generation' }
+            }).catch(error => {
+                showAlert('Generation failed: ' + error.message);
+                resetTVState('generation');
+                isRunning = false;
+                dom.nextStepBtn.disabled = false;
+            });
+        }
+
+        function executeVerification() {
+            setTVActive('verification');
+            dom.verifyStatus.textContent = 'ANALYZING...';
+            dom.verifyProgress.style.width = '50%';
+            dom.verifyContent.innerHTML = '<div class="text-center"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-2"></div><p class="loading-dots">Analyzing match quality</p></div>';
+            
+            isRunning = true;
+            dom.nextStepBtn.disabled = true;
+            
+            const model = dom.verificationModel.value;
+            const focusArea = dom.focusAreas.value;
+            
+            let focusInstruction = '';
+            switch(focusArea) {
+                case 'face':
+                    focusInstruction = 'Focus primarily on facial features, expression, and facial structure.';
+                    break;
+                case 'face-build':
+                    focusInstruction = 'Focus on both facial features and overall body build/physique.';
+                    break;
+                case 'overall':
+                    focusInstruction = 'Consider the overall appearance including face, build, pose, and style.';
+                    break;
+            }
+            
+            const verificationPrompt = `
+You are an expert image verification system. Compare the generated image with the reference image and provide a detailed analysis.
+
+${focusInstruction}
+
+Your task:
+1. Analyze how well the generated image matches the reference image
+2. Provide a numerical score from 0-100 (where 100 is perfect match)
+3. List specific areas that need improvement
+
+Format your response as:
+SCORE: [number 0-100]
+ANALYSIS: [detailed comparison]
+IMPROVEMENTS_NEEDED: [specific areas to fix, separated by semicolons]
+
+Be precise and focus on actionable feedback for prompt refinement.`;
+
+            // Convert generated image URL to blob and create file
+            fetch(currentImageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const generatedImageFile = new File([blob], 'generated.png', { type: 'image/png' });
+                    
+                    return window.Poe.sendUserMessage(`${model} ${verificationPrompt}`, {
+                        handler: "verification-handler",
+                        stream: false,
+                        openChat: false,
+                        attachments: [uploadedFile, generatedImageFile],
+                        handlerContext: { 
+                            prompt: currentPrompt, 
+                            generatedImageUrl: currentImageUrl,
+                            step: 'verification' 
+                        }
+                    });
+                })
+                .catch(error => {
+                    showAlert('Verification failed: ' + error.message);
+                    resetTVState('verification');
+                    isRunning = false;
+                    dom.nextStepBtn.disabled = false;
+                });
+        }
+
+        function executeRefinement() {
+            setTVActive('refinement');
+            dom.refineStatus.textContent = 'REFINING...';
+            dom.refineProgress.style.width = '50%';
+            dom.refineContent.innerHTML = '<div class="text-center"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400 mx-auto mb-2"></div><p class="loading-dots">Refining prompt</p></div>';
+            
+            isRunning = true;
+            dom.nextStepBtn.disabled = true;
+            
+            const model = dom.refinementModel.value;
+            
+            const refinementPrompt = `
+You are an expert prompt engineer specializing in human generation. Your task is to refine this prompt based on verification feedback.
+
+CURRENT PROMPT: "${currentPrompt}"
+
+VERIFICATION FEEDBACK:
+Analysis: ${currentAnalysis}
+Areas needing improvement: ${currentImprovements}
+
+Your task:
+1. Analyze the feedback and identify specific prompt modifications needed
+2. Refine the prompt to address the identified issues
+3. Maintain the core intent while improving accuracy
+4. Focus on precise descriptive language for human features
+
+Provide ONLY the refined prompt with no explanations or additional text.`;
+
+            window.Poe.sendUserMessage(`${model} ${refinementPrompt}`, {
+                handler: "refinement-handler",
+                stream: false,
+                openChat: false,
+                handlerContext: { 
+                    originalPrompt: currentPrompt,
+                    step: 'refinement' 
+                }
+            }).catch(error => {
+                showAlert('Refinement failed: ' + error.message);
+                resetTVState('refinement');
+                isRunning = false;
+                dom.nextStepBtn.disabled = false;
+            });
+        }
+
+        // TV Screen management
+        function setTVActive(screen) {
+            // Reset all screens
+            document.querySelectorAll('.tv-screen').forEach(tv => {
+                tv.classList.remove('tv-active');
+            });
+            
+            // Activate specific screen
+            const screens = {
+                'generation': document.querySelector('.tv-screen:nth-child(1)'),
+                'verification': document.querySelector('.tv-screen:nth-child(2)'),
+                'refinement': document.querySelector('.tv-screen:nth-child(3)')
+            };
+            
+            if (screens[screen]) {
+                screens[screen].classList.add('tv-active');
+            }
+        }
+
+        function resetTVState(screen) {
+            const statusElements = {
+                'generation': dom.genStatus,
+                'verification': dom.verifyStatus,
+                'refinement': dom.refineStatus
+            };
+            
+            const progressElements = {
+                'generation': dom.genProgress,
+                'verification': dom.verifyProgress,
+                'refinement': dom.refineProgress
+            };
+            
+            if (statusElements[screen]) {
+                statusElements[screen].textContent = 'STANDBY';
+            }
+            
+            if (progressElements[screen]) {
+                progressElements[screen].style.width = '0%';
+            }
+        }
+
+        function resetSystem() {
+            // Reset all state
+            currentIteration = 0;
+            currentStep = 'init';
+            currentPrompt = '';
+            currentImageUrl = '';
+            currentScore = 0;
+            currentAnalysis = '';
+            currentImprovements = '';
+            bestScore = 0;
+            iterationHistory = [];
+            isRunning = false;
+            
+            // Reset UI
+            dom.processFlow.classList.add('hidden');
+            dom.cinemaSection.classList.add('hidden');
+            dom.historySection.classList.add('hidden');
+            
+            dom.initBtn.classList.remove('hidden');
+            dom.nextStepBtn.classList.add('hidden');
+            dom.resetBtn.classList.add('hidden');
+            
+            // Clear all TV screens
+            resetTVState('generation');
+            resetTVState('verification');
+            resetTVState('refinement');
+            
+            // Clear cinema
+            dom.finalImagePlaceholder.classList.remove('hidden');
+            dom.finalImage.classList.add('hidden');
+            dom.finalIteration.textContent = '-';
+            dom.finalScore.textContent = '-';
+            
+            // Clear history
+            dom.iterationHistory.innerHTML = '';
+            
+            document.querySelectorAll('.tv-screen').forEach(tv => {
+                tv.classList.remove('tv-active');
+            });
+            
+            showAlert('System reset. Ready for new session.');
+        }
+
+        // Response handlers for manual step control
+        function handleGenerationResponse(result, context) {
+            isRunning = false;
+            dom.nextStepBtn.disabled = false;
+            
+            if (result.status === "complete") {
+                if (result.responses[0].attachments?.length > 0) {
+                    currentImageUrl = result.responses[0].attachments[0].url;
+                    
+                    // Update generation screen
+                    dom.genStatus.textContent = 'COMPLETE';
+                    dom.genProgress.style.width = '100%';
+                    dom.genContent.innerHTML = `<img src="${currentImageUrl}" class="w-full rounded-lg max-h-32 object-cover">`;
+                    
+                    // Prepare for verification
+                    currentStep = 'verify';
+                    dom.nextStepBtn.innerHTML = '🔍 Verify Match';
+                    
+                    showAlert('Image generated! Click "Verify Match" to analyze quality.');
+                } else {
+                    showAlert('No image was generated. Please try again.');
+                    resetTVState('generation');
+                }
+            } else if (result.status === "error") {
+                showAlert('Image generation failed: ' + (result.responses[0].statusText || 'Unknown error'));
+                resetTVState('generation');
+            }
+        }
+
+        function handleVerificationResponse(result, context) {
+            isRunning = false;
+            dom.nextStepBtn.disabled = false;
+            
+            if (result.status === "complete") {
+                const response = result.responses[0].content;
+                
+                // Parse the verification response
+                const scoreMatch = response.match(/SCORE:\s*(\d+)/i);
+                const analysisMatch = response.match(/ANALYSIS:\s*([^]*?)(?=IMPROVEMENTS_NEEDED:|$)/i);
+                const improvementsMatch = response.match(/IMPROVEMENTS_NEEDED:\s*([^]*?)$/i);
+                
+                currentScore = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+                currentAnalysis = analysisMatch ? analysisMatch[1].trim() : 'No analysis provided';
+                currentImprovements = improvementsMatch ? improvementsMatch[1].trim() : 'No specific improvements listed';
+                
+                // Update verification screen
+                dom.verifyStatus.textContent = 'COMPLETE';
+                dom.verifyProgress.style.width = '100%';
+                dom.verifyContent.innerHTML = `<div class="text-center text-lg font-bold ${currentScore >= 80 ? 'text-green-400' : currentScore >= 60 ? 'text-yellow-400' : 'text-red-400'}">${currentScore}/100</div>`;
+                
+                // Show results
+                dom.verifyResult.classList.remove('hidden');
+                dom.verifyScore.textContent = currentScore;
+                dom.verifyAnalysis.textContent = currentAnalysis;
+                
+                // Update best score
+                if (currentScore > bestScore) {
+                    bestScore = currentScore;
+                }
+                
+                // Add to iteration history
+                const iterationData = {
+                    iteration: currentIteration,
+                    prompt: currentPrompt,
+                    imageUrl: currentImageUrl,
+                    score: currentScore,
+                    analysis: currentAnalysis,
+                    improvements: currentImprovements
+                };
+                iterationHistory.push(iterationData);
+                displayIterationHistory(iterationData);
+                
+                const targetScore = parseInt(dom.targetScore.value);
+                const maxIter = parseInt(dom.maxIterations.value);
+                
+                // Check if we should continue or finish
+                if (currentScore >= targetScore) {
+                    // Target achieved - show in cinema
+                    showFinalResult(iterationData);
+                    currentStep = 'complete';
+                    dom.nextStepBtn.innerHTML = '✅ Target Achieved!';
+                    dom.nextStepBtn.disabled = true;
+                    showAlert(`🎉 Target score of ${targetScore} achieved! Check the cinema section.`);
+                } else if (currentIteration >= maxIter) {
+                    // Max iterations reached
+                    showFinalResult(iterationData);
+                    currentStep = 'complete';
+                    dom.nextStepBtn.innerHTML = '⏰ Max Iterations Reached';
+                    dom.nextStepBtn.disabled = true;
+                    showAlert(`Process completed after ${maxIter} iterations. Best score: ${bestScore}`);
+                } else {
+                    // Continue with refinement
+                    currentStep = 'refine';
+                    dom.nextStepBtn.innerHTML = '✨ Refine Prompt';
+                    showAlert('Analysis complete! Click "Refine Prompt" to improve for next iteration.');
+                }
+                
+            } else if (result.status === "error") {
+                showAlert('Verification failed: ' + (result.responses[0].statusText || 'Unknown error'));
+                resetTVState('verification');
+            }
+        }
+
+        function handleRefinementResponse(result, context) {
+            isRunning = false;
+            dom.nextStepBtn.disabled = false;
+            
+            if (result.status === "complete") {
+                const refinedPrompt = result.responses[0].content.trim();
+                currentPrompt = refinedPrompt;
+                
+                // Update refinement screen
+                dom.refineStatus.textContent = 'COMPLETE';
+                dom.refineProgress.style.width = '100%';
+                dom.refineContent.innerHTML = '<div class="text-center text-green-400 text-lg">✨ Prompt Refined</div>';
+                
+                // Show refined prompt
+                dom.refineResult.classList.remove('hidden');
+                dom.refinedPromptText.textContent = refinedPrompt;
+                
+                // Update generation screen with new prompt
+                dom.genPromptText.textContent = refinedPrompt;
+                
+                // Prepare for next iteration
+                currentIteration++;
+                currentStep = 'generate';
+                dom.nextStepBtn.innerHTML = '🎬 Generate Next Iteration';
+                
+                // Reset previous screens for next iteration
+                resetTVState('generation');
+                resetTVState('verification');
+                dom.verifyResult.classList.add('hidden');
+                
+                showAlert(`Prompt refined! Click "Generate Next Iteration" to test iteration ${currentIteration}.`);
+                
+            } else if (result.status === "error") {
+                showAlert('Prompt refinement failed: ' + (result.responses[0].statusText || 'Unknown error'));
+                resetTVState('refinement');
+            }
+        }
+
+        function displayIterationHistory(data) {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'bg-gray-700 rounded-lg p-4 border-l-4 border-primary';
+            
+            const scoreColor = data.score >= 80 ? 'text-green-400' : data.score >= 60 ? 'text-yellow-400' : 'text-red-400';
+            
+            historyItem.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-semibold">Iteration ${data.iteration}</h3>
+                    <span class="text-xl font-bold ${scoreColor}">${data.score}/100</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                    <div>
+                        <img src="${data.imageUrl}" class="w-full rounded max-h-24 object-cover" alt="Iteration ${data.iteration}">
+                    </div>
+                    <div>
+                        <div class="text-gray-400 mb-1">Prompt:</div>
+                        <div class="text-gray-300 text-xs">${data.prompt}</div>
+                    </div>
+                    <div>
+                        <div class="text-gray-400 mb-1">Analysis:</div>
+                        <div class="text-gray-300 text-xs">${data.analysis}</div>
+                    </div>
+                </div>
+            `;
+            
+            dom.iterationHistory.appendChild(historyItem);
+        }
+
+        function showFinalResult(data) {
+            dom.finalIteration.textContent = data.iteration;
+            dom.finalScore.textContent = data.score;
+            dom.finalImagePlaceholder.classList.add('hidden');
+            dom.finalImage.src = data.imageUrl;
+            dom.finalImage.classList.remove('hidden');
+        }
+
+        function showAlert(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 max-w-sm';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+
+        // Event listeners
+        dom.uploadArea.addEventListener('click', () => dom.fileInput.click());
+        dom.fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+        dom.replaceBtn.addEventListener('click', () => dom.fileInput.click());
+        dom.removeBtn.addEventListener('click', removeImage);
+        dom.initBtn.addEventListener('click', initializeSystem);
+        dom.nextStepBtn.addEventListener('click', executeNextStep);
+        dom.resetBtn.addEventListener('click', resetSystem);
+
+        // Drag and drop for image upload
+        dom.uploadArea.addEventListener('dragover', e => {
+            e.preventDefault();
+            dom.uploadArea.classList.add('border-primary');
+        });
+
+        dom.uploadArea.addEventListener('dragleave', e => {
+            e.preventDefault();
+            dom.uploadArea.classList.remove('border-primary');
+        });
+
+        dom.uploadArea.addEventListener('drop', e => {
+            e.preventDefault();
+            dom.uploadArea.classList.remove('border-primary');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // Initialize
+        dom.userPrompt.focus();
+    </script>
+</body>
+</html>
