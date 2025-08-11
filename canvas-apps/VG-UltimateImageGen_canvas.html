@@ -407,32 +407,19 @@
 
     // --- Poe API Handlers ---
     // Centralized handlers for all AI interactions.
-    function registerPoeHandlers() {
-        // This function waits for the window.Poe object to be available before registering handlers.
-        if (window.Poe) {
-            console.log("🔌 Registering Poe API Handlers...");
-            window.Poe.registerHandler("analysis_handler", handleAnalysisResponse);
-            window.Poe.registerHandler("curation_handler", handleCurationResponse);
-            window.Poe.registerHandler("image_read_handler", r => { dom.originalPrompt.value = r.responses[0].content.trim(); });
-            window.Poe.registerHandler("remove_bg_handler", handleRemoveBgResponse);
-            window.Poe.registerHandler("multi_image_handler", handleMultiImageResponse);
-            window.Poe.registerHandler("face_generation_handler", handleFaceGenerationResponse);
-            window.Poe.registerHandler("face_verification_handler", handleFaceVerificationResponse);
-            window.Poe.registerHandler("face_refinement_handler", handleFaceRefinementResponse);
-            console.log("✅ Poe Handlers Registered.");
-        } else {
-            // If the Poe object isn't ready, wait 100ms and try again.
-            // This is a robust way to handle the asynchronous injection of the Poe API.
-            console.warn("⏳ Poe object not found. Retrying in 100ms...");
-            setTimeout(registerPoeHandlers, 100);
-        }
-    }
+    window.Poe.registerHandler("analysis_handler", handleAnalysisResponse);
+    window.Poe.registerHandler("curation_handler", handleCurationResponse);
+    window.Poe.registerHandler("image_read_handler", r => { dom.originalPrompt.value = r.responses[0].content.trim(); });
+    window.Poe.registerHandler("remove_bg_handler", handleRemoveBgResponse);
+    window.Poe.registerHandler("multi_image_handler", handleMultiImageResponse);
+    window.Poe.registerHandler("face_generation_handler", handleFaceGenerationResponse);
+    window.Poe.registerHandler("face_verification_handler", handleFaceVerificationResponse);
+    window.Poe.registerHandler("face_refinement_handler", handleFaceRefinementResponse);
 
 
     // --- App Initialization ---
     document.addEventListener('DOMContentLoaded', () => {
         cacheDOMElements();
-        registerPoeHandlers(); // Safely register handlers
         initializeEventListeners();
         populateModelSelectionGrid();
         switchWorkflow('creative'); // Start in creative mode by default
@@ -1088,4 +1075,3 @@
     </script>
 </body>
 </html>
-
